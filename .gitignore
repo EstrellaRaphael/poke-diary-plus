@@ -1,0 +1,18 @@
+# Node
+node_modules/
+dist/
+
+# Angular
+.angular/cache/
+.angular/config.json
+
+# Go
+backend/bin/
+backend/pkg/
+
+# Environments
+*.env
+
+# Others
+.DS_Store
+*.log
