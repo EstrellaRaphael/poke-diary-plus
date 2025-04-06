@@ -16,6 +16,7 @@ yarn-error.log*
 .env
 .env.*.local
 .env.local
+.env.example
 
 # IDEs
 .vscode/
@@ -24,24 +25,25 @@ yarn-error.log*
 *.sublime-project
 
 # ---------------------------
-# FRONTEND (Angular)
+# FRONTEND (Angular CLI - poke-diary-frontend)
 # ---------------------------
 
 # Angular output
-/dist/
-/.angular/
-/out-tsc/
-/coverage/
+/frontend/poke-diary-frontend/dist/
+/frontend/poke-diary-frontend/.angular/
+/frontend/poke-diary-frontend/out-tsc/
+/frontend/poke-diary-frontend/coverage/
 
 # Node modules
-/frontend/node_modules/
+/frontend/poke-diary-frontend/node_modules/
 
 # Build artifacts
-/frontend/.turbo/
-frontend/.parcel-cache/
+/frontend/poke-diary-frontend/.turbo/
+/frontend/poke-diary-frontend/.parcel-cache/
 
-# Test coverage
-/frontend/coverage/
+# Others
+/frontend/poke-diary-frontend/.browserlistrc
+/frontend/poke-diary-frontend/.DS_Store
 
 # ---------------------------
 # BACKEND (Go + Gin)
