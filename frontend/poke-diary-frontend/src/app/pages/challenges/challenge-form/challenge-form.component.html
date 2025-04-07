@@ -1,0 +1,28 @@
+<div class="challenge-form-container">
+    <h2 class="title">Novo Desafio Pokémon</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Nome do Desafio</mat-label>
+            <input matInput formControlName="name" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Tipo</mat-label>
+            <mat-select formControlName="type" required>
+                <mat-option value="Nuzlocke">Nuzlocke</mat-option>
+                <mat-option value="Randomlocke">Randomlocke</mat-option>
+                <mat-option value="Hardcore Nuzlocke">Hardcore Nuzlocke</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Regras adicionais (opcional)</mat-label>
+            <textarea matInput formControlName="rules" rows="5"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+            Iniciar Desafio
+        </button>
+    </form>
+</div>

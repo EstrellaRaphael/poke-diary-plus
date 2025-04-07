@@ -53,4 +53,10 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/diary/diary-edit/diary-edit.component').then(m => m.DiaryEditComponent)
     },
+    {
+        path: 'challenge/new',
+        canActivate: [authGuard],
+        loadComponent: () =>
+            import('./pages/challenges/challenge-form/challenge-form.component').then(m => m.ChallengeFormComponent)
+    },
 ];
