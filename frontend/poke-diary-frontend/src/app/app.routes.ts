@@ -82,4 +82,9 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/feed/feed/feed.component').then(m => m.FeedComponent)
     },
+    {
+        path: 'treinador/:username',
+        loadComponent: () =>
+            import('./pages/treinador/perfil/perfil.component').then(m => m.PerfilComponent)
+    },
 ];
