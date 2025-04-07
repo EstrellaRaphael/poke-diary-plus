@@ -1,0 +1,30 @@
+<div class="dashboard-container">
+    <h2 class="title">👋 Olá, treinador!</h2>
+    <p class="subtitle">Pronto para continuar sua jornada no PokéDiary+?</p>
+
+    <div class="card-grid">
+        <mat-card class="dashboard-card">
+            <mat-card-header>
+                <mat-card-title>📘 Jornada Atual</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Nenhuma jornada registrada ainda.</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" routerLink="/diary/new">Nova Jornada</button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="dashboard-card">
+            <mat-card-header>
+                <mat-card-title>⚔️ Desafio Nuzlocke</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Você ainda não iniciou um desafio.</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-stroked-button color="primary" routerLink="/challenge">Iniciar Desafio</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
