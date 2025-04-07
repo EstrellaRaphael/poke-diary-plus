@@ -39,4 +39,12 @@ export const routes: Routes = [
                 (m) => m.DiaryListComponent
             ),
     },
+    {
+        path: 'diary/:id',
+        canActivate: [authGuard],
+        loadComponent: () =>
+            import('./pages/diary/diary-view/diary-view.component').then(
+                (m) => m.DiaryViewComponent
+            ),
+    },
 ];

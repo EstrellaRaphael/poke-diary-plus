@@ -16,4 +16,8 @@ export class DiaryService {
   getAllDiaries() {
     return this.http.get<any[]>(`${this.api}/diary`);
   }
+
+  getDiaryById(id: string) {
+    return this.http.get<any>(`${this.api}/diary/${id}`);
+  }
 }
