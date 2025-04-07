@@ -1,0 +1,29 @@
+.challenge-view-container {
+    max-width: 700px;
+    margin: 4rem auto;
+    font-family: 'Rubik', sans-serif;
+}
+
+.challenge-card {
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.progress-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.ativo {
+    color: #43a047;
+}
+
+.completo {
+    color: #1e88e5;
+}
+
+.falhou {
+    color: #e53935;
+}

@@ -23,7 +23,7 @@
             </mat-card-content>
 
             <mat-card-actions>
-                <button mat-button disabled>Ver Progresso</button>
+                <button mat-button [routerLink]="['/challenge', challenge.id]">Ver Progresso</button>
                 <button mat-button disabled>Finalizar</button>
             </mat-card-actions>
         </mat-card>

@@ -1,0 +1,27 @@
+<div class="challenge-view-container" *ngIf="challenge">
+    <mat-card class="challenge-card">
+        <mat-card-header>
+            <mat-card-title>{{ challenge.name }}</mat-card-title>
+            <mat-card-subtitle>{{ challenge.type }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <p><strong>Regras:</strong></p>
+            <p>{{ challenge.rules || 'Sem regras adicionais.' }}</p>
+
+            <p><strong>Status:</strong>
+                <span [ngClass]="challenge.status">{{ challenge.status | titlecase }}</span>
+            </p>
+
+            <div class="progress-section">
+                <h4>Progresso</h4>
+                <p>⚠️ Acompanhamento de progresso será implementado em breve.</p>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-stroked-button disabled>Editar</button>
+            <button mat-stroked-button disabled>Finalizar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
