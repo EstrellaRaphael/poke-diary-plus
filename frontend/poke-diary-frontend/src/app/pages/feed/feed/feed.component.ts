@@ -36,12 +36,18 @@ export class FeedComponent implements OnInit {
 
   filteredChallenges: any[] = [];
 
+  likedChallenges: Set<string> = new Set();
+  likes: { [id: string]: number } = {};
+
   constructor(private challengeService: ChallengeService) { }
 
   ngOnInit(): void {
     this.challengeService.getPublicChallenges().subscribe({
       next: (res) => {
         this.challenges = res;
+        this.challenges.forEach(ch => {
+          this.likes[ch.id] = Math.floor(Math.random() * 10); // simula curtidas iniciais
+        });
         this.applyFilters();
       },
       error: () => alert('Erro ao carregar o feed.')
@@ -59,5 +65,15 @@ export class FeedComponent implements OnInit {
       const statusOk = this.selectedStatus === 'todos' || challenge.status === this.selectedStatus;
       return tipoOk && statusOk;
     });
+  }
+
+  toggleLike(challengeId: string) {
+    if (this.likedChallenges.has(challengeId)) {
+      this.likedChallenges.delete(challengeId);
+      this.likes[challengeId]--;
+    } else {
+      this.likedChallenges.add(challengeId);
+      this.likes[challengeId] = (this.likes[challengeId] || 0) + 1;
+    }
   }
 }

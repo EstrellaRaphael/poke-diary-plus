@@ -46,3 +46,10 @@
 .filtro-select {
     width: 200px;
 }
+
+.likes-count {
+    margin-left: 4px;
+    font-weight: 500;
+    color: #e53935;
+    vertical-align: middle;
+}
