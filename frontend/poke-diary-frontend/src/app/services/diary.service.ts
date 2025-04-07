@@ -24,4 +24,8 @@ export class DiaryService {
   updateDiary(id: string, data: { title: string; game: string; notes?: string }) {
     return this.http.put(`${this.api}/diary/${id}`, data);
   }
+
+  deleteDiary(id: string) {
+    return this.http.delete(`${this.api}/diary/${id}`);
+  }
 }

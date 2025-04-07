@@ -17,6 +17,9 @@
             <mat-card-actions>
                 <button mat-button [routerLink]="['/diary', diary.id]">Visualizar</button>
                 <button mat-button [routerLink]="['/diary', diary.id, 'edit']">Editar</button>
+                <button mat-button color="warn" (click)="deleteDiary(diary.id)">
+                    Excluir
+                </button>
             </mat-card-actions>
         </mat-card>
     </div>

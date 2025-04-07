@@ -23,4 +23,17 @@ export class DiaryListComponent implements OnInit {
       error: () => alert('Erro ao carregar jornadas.'),
     });
   }
+
+  deleteDiary(id: string) {
+    const confirmar = confirm('Tem certeza que deseja excluir esta jornada?');
+    if (confirmar) {
+      this.diaryService.deleteDiary(id).subscribe({
+        next: () => {
+          this.diaries = this.diaries.filter(d => d.id !== id);
+        },
+        error: () => alert('Erro ao excluir a jornada.')
+      });
+    }
+  }
+  
 }
