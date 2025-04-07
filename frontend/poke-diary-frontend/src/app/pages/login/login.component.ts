@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class LoginComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -32,8 +33,15 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Login data:', this.form.value)
-      // TODO: Integrar serviço de autenticação
+      this.authService.login(this.form.value).subscribe({
+        next: (res) => {
+          this.authService.saveToken(res.token);
+          this.router.navigate(['/dashboard']);
+        },
+        error: () => {
+          alert('Login inválido!')
+        }
+      })
     }
   }
 }

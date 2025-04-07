@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,7 @@ import { RouterModule } from '@angular/router';
 export class RegisterComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.form = this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required, Validators.email],
@@ -31,10 +32,17 @@ export class RegisterComponent {
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     if (this.form.valid) {
-      console.log('Cadastro enviado:', this.form.value)
-      //TODO: VALIDAR SENHA E INTEGRAR COM BACKEND
+      const { username, email, password } = this.form.value;
+      this.authService.register({ username, email, password }).subscribe({
+        next: () => {
+          this.router.navigate(['/login']);
+        },
+        error: () => {
+          alert('Erro ao cadastrar usuário!');
+        }
+      });
     }
   }
 }
