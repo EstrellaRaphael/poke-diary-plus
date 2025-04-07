@@ -12,4 +12,8 @@ export class DiaryService {
   createDiary(data: { title: string; game: string; notes?: string }) {
     return this.http.post(`${this.api}/diary`, data);
   }
+
+  getAllDiaries() {
+    return this.http.get<any[]>(`${this.api}/diary`);
+  }
 }
