@@ -25,4 +25,8 @@ export class ChallengeService {
   updateChallenge(id: string, data: any) {
     return this.http.put(`${this.api}/challenge/${id}`, data);
   }
+
+  updateChallengeStatus(id: string, status: 'completo' | 'falhou') {
+    return this.http.patch(`${this.api}/challenge/${id}`, { status });
+  }
 }

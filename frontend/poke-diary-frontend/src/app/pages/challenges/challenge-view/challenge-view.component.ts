@@ -34,4 +34,17 @@ export class ChallengeViewComponent implements OnInit {
       });
     }
   }
+
+  finalizar(status: 'completo' | 'falhou') {
+    const mensagem = status === 'completo'
+      ? 'Deseja marcar este desafio como COMPLETO?'
+      : 'Deseja marcar este desafio como FALHOU?';
+
+    if (confirm(mensagem)) {
+      this.challengeService.updateChallengeStatus(this.challenge.id, status).subscribe({
+        next: () => window.location.reload(), 
+        error: () => alert('Erro ao atualizar status do desafio.')
+      });
+    }
+  }
 }

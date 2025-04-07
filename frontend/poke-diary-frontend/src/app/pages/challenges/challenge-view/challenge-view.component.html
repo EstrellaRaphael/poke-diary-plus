@@ -19,10 +19,16 @@
             </div>
         </mat-card-content>
 
-        <mat-card-actions>
-            <button mat-stroked-button [routerLink]="['/challenge', challenge.id, 'edit']">
+        <mat-card-actions *ngIf="challenge.status === 'ativo'">
+            <button mat-stroked-button color="primary" [routerLink]="['/challenge', challenge.id, 'edit']">
                 Editar
-            </button> <button mat-stroked-button disabled>Finalizar</button>
+            </button>
+            <button mat-stroked-button color="accent" (click)="finalizar('completo')">
+                Finalizar Desafio
+            </button>
+            <button mat-stroked-button color="warn" (click)="finalizar('falhou')">
+                Marcar como Falhou
+            </button>
         </mat-card-actions>
     </mat-card>
 </div>
