@@ -11,7 +11,9 @@
                 <p>Nenhuma jornada registrada ainda.</p>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button color="primary" routerLink="/diary/new">Nova Jornada</button>
+                <button mat-raised-button color="primary" routerLink="/diary/new">
+                    Nova Jornada
+                </button>
             </mat-card-actions>
         </mat-card>
 
@@ -25,7 +27,23 @@
             <mat-card-actions>
                 <button mat-raised-button [routerLink]="['/challenge/new']">
                     Iniciar Desafio
-                </button> </mat-card-actions>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="dashboard-card">
+            <mat-card-header>
+                <mat-card-title>🗂️ Minhas Jornadas Pokémon</mat-card-title>
+                <mat-card-subtitle>Registre suas aventuras</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Acesse todas as jornadas registradas com suas anotações e progresso.</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [routerLink]="['/diary']">
+                    Acessar Diários
+                </button>
+            </mat-card-actions>
         </mat-card>
     </div>
 </div>
