@@ -1,0 +1,24 @@
+<div class="diary-form-container">
+    <h2 class="title">Nova Jornada Pokémon</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Título da jornada</mat-label>
+            <input matInput formControlName="title" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Jogo</mat-label>
+            <input matInput formControlName="game" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Notas adicionais</mat-label>
+            <textarea matInput formControlName="notes" rows="5"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+            Salvar Jornada
+        </button>
+    </form>
+</div>
