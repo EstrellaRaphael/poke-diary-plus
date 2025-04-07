@@ -5,7 +5,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ChallengeService } from '../../../services/challenge.service';
 
 @Component({
   selector: 'app-challenge-form',
@@ -25,7 +26,7 @@ import { RouterModule } from '@angular/router';
 export class ChallengeFormComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private challengeService: ChallengeService, private router: Router) {
     this.form = this.fb.group({
       name: ['', Validators.required],
       type: ['', Validators.required],
@@ -35,8 +36,12 @@ export class ChallengeFormComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Novo Desafio:', this.form.value);
-      // TODO: integrar com backend futuramente
+      this.challengeService.createChallenge(this.form.value).subscribe({
+        next: () => {
+          this.router.navigate(['/dashboard']);
+        },
+        error: () => alert('Erro ao criar desafio.')
+      });
     }
   }
 }
