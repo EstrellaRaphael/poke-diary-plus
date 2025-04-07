@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ChallengeService } from '../../../services/challenge.service';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-challenge-view',
@@ -34,6 +35,8 @@ export class ChallengeViewComponent implements OnInit {
   newFainted = '';
   newBadge = '';
 
+  isSaving = false;
+
   constructor(
     private route: ActivatedRoute,
     private challengeService: ChallengeService
@@ -45,6 +48,11 @@ export class ChallengeViewComponent implements OnInit {
       this.challengeService.getChallengeById(id).subscribe({
         next: (res) => this.challenge = res,
         error: () => alert('Erro ao carregar o desafio.')
+      });
+
+      this.challengeService.getProgressByChallengeId(id).subscribe({
+        next: (res: any) => this.progress = res,
+        error: () => console.warn('Progresso ainda não existe.')
       });
     }
   }
@@ -72,5 +80,15 @@ export class ChallengeViewComponent implements OnInit {
 
   removeFrom(list: 'caught' | 'fainted' | 'badges', index: number) {
     this.progress[list].splice(index, 1);
+  }
+
+  saveProgress() {
+    this.isSaving = true;
+    this.challengeService.saveProgress(this.challenge.id, this.progress)
+      .pipe(finalize(() => this.isSaving = false))
+      .subscribe({
+        next: () => alert('Progresso salvo com sucesso!'),
+        error: () => alert('Erro ao salvar progresso.')
+      });
   }
 }

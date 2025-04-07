@@ -63,7 +63,13 @@
                     </mat-form-field>
                     <button mat-button color="accent" (click)="addTo('badges', newBadge)">Adicionar</button>
                 </section>
+                <div class="save-btn-container">
+                    <button mat-raised-button color="primary" (click)="saveProgress()" [disabled]="isSaving">
+                        {{ isSaving ? 'Salvando...' : 'Salvar Progresso' }}
+                    </button>
+                </div>
             </div>
+
         </mat-card-content>
 
         <mat-card-actions *ngIf="challenge.status === 'ativo'">

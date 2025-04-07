@@ -69,3 +69,8 @@ section {
     width: 100%;
     max-width: 300px;
 }
+
+.save-btn-container {
+    margin-top: 2rem;
+    text-align: center;
+}

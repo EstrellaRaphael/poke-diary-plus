@@ -29,4 +29,12 @@ export class ChallengeService {
   updateChallengeStatus(id: string, status: 'completo' | 'falhou') {
     return this.http.patch(`${this.api}/challenge/${id}`, { status });
   }
+
+  getProgressByChallengeId(challengeId: string) {
+    return this.http.get(`${this.api}/challenge/${challengeId}/progress`);
+  }
+
+  saveProgress(challengeId: string, progress: { caught: string[], fainted: string[], badges: string[] }) {
+    return this.http.put(`${this.api}/challenge/${challengeId}/progress`, progress);
+  }
 }
