@@ -1,11 +1,14 @@
 <div class="perfil-container">
     <h2 class="title">Perfil de {{ username }}</h2>
 
+    <!-- Desafios Criados -->
     <div class="perfil-grid">
         <mat-card *ngFor="let challenge of challenges" class="perfil-card">
             <mat-card-header>
                 <mat-card-title>{{ challenge.name }}</mat-card-title>
-                <mat-card-subtitle>{{ challenge.type }} - {{ challenge.status | titlecase }}</mat-card-subtitle>
+                <mat-card-subtitle>
+                    {{ challenge.type }} - {{ challenge.status | titlecase }}
+                </mat-card-subtitle>
             </mat-card-header>
 
             <mat-card-content>
@@ -14,7 +17,6 @@
                     <img *ngFor="let pkm of challenge.progress.caught" [src]="getPokemonSprite(pkm)" [alt]="pkm"
                         class="sprite" />
                 </div>
-
                 <p><strong>Insígnias:</strong> {{ challenge.progress.badges.join(', ') || 'Nenhuma' }}</p>
             </mat-card-content>
 
@@ -24,5 +26,36 @@
                 </button>
             </mat-card-actions>
         </mat-card>
+    </div>
+
+    <!-- Desafios Curtidos -->
+    <div *ngIf="likedChallenges.length > 0">
+        <h3 class="title">Desafios que {{ username }} curtiu</h3>
+
+        <div class="perfil-grid">
+            <mat-card *ngFor="let challenge of likedChallenges" class="perfil-card">
+                <mat-card-header>
+                    <mat-card-title>{{ challenge.name }}</mat-card-title>
+                    <mat-card-subtitle>
+                        {{ challenge.type }} - {{ challenge.status | titlecase }}
+                    </mat-card-subtitle>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <p><strong>Capturados:</strong></p>
+                    <div class="sprite-list">
+                        <img *ngFor="let pkm of challenge.progress.caught" [src]="getPokemonSprite(pkm)" [alt]="pkm"
+                            class="sprite" />
+                    </div>
+                    <p><strong>Insígnias:</strong> {{ challenge.progress.badges.join(', ') || 'Nenhuma' }}</p>
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <button mat-button [routerLink]="['/challenge', challenge.id]">
+                        Ver Desafio
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
     </div>
 </div>

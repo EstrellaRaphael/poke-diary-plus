@@ -22,6 +22,8 @@ import { ChallengeService } from '../../../services/challenge.service';
 export class PerfilComponent implements OnInit {
   username = '';
   challenges: any[] = [];
+  likedChallenges: any[] = [];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +36,19 @@ export class PerfilComponent implements OnInit {
       next: (res) => this.challenges = res,
       error: () => alert('Erro ao carregar desafios do treinador.')
     });
+
+    const storedLikes = localStorage.getItem('likedChallenges');
+    if (storedLikes && this.username === 'ash') { // simulação de login
+    // if (storedLikes && this.username === authService.getUsername()) {
+      const likedIds = JSON.parse(storedLikes);
+
+      // Simular busca dos desafios curtidos (mock)
+      this.challengeService.getPublicChallenges().subscribe({
+        next: (allChallenges) => {
+          this.likedChallenges = allChallenges.filter(ch => likedIds.includes(ch.id));
+        }
+      });
+    }
   }
 
   getPokemonSprite(name: string): string {

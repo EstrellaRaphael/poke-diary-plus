@@ -48,6 +48,10 @@ export class FeedComponent implements OnInit {
         this.challenges.forEach(ch => {
           this.likes[ch.id] = Math.floor(Math.random() * 10); // simula curtidas iniciais
         });
+        const storedLikes = localStorage.getItem('likedChallenges');
+        if (storedLikes) {
+          this.likedChallenges = new Set(JSON.parse(storedLikes));
+        }
         this.applyFilters();
       },
       error: () => alert('Erro ao carregar o feed.')
@@ -75,5 +79,8 @@ export class FeedComponent implements OnInit {
       this.likedChallenges.add(challengeId);
       this.likes[challengeId] = (this.likes[challengeId] || 0) + 1;
     }
+
+    localStorage.setItem('likedChallenges', JSON.stringify([...this.likedChallenges]));
+
   }
 }
