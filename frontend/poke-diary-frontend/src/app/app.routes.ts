@@ -24,6 +24,11 @@ export const routes: Routes = [
             ),
     },
     {
+        path: 'diary',
+        loadComponent: () =>
+            import('./pages/diary/diary-list/diary-list.component').then(m => m.DiaryListComponent)
+    },
+    {
         path: 'diary/new',
         canActivate: [authGuard],
         loadComponent: () =>
@@ -41,11 +46,8 @@ export const routes: Routes = [
     },
     {
         path: 'diary/:id',
-        canActivate: [authGuard],
         loadComponent: () =>
-            import('./pages/diary/diary-view/diary-view.component').then(
-                (m) => m.DiaryViewComponent
-            ),
+            import('./pages/diary/diary-view/diary-view.component').then(m => m.DiaryViewComponent)
     },
     {
         path: 'diary/:id/edit',

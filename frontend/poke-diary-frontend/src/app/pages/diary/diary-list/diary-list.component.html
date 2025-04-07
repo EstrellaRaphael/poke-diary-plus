@@ -12,7 +12,7 @@
                 <mat-card-subtitle>{{ diary.game }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <p>{{ diary.notes || 'Sem anotações adicionais.' }}</p>
+                <p>{{ diary.notes ? (diary.notes | slice:0:150) + '...' : 'Sem anotações adicionais.' }}</p>
             </mat-card-content>
             <mat-card-actions>
                 <button mat-button [routerLink]="['/diary', diary.id]">Visualizar</button>

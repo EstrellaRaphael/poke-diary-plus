@@ -29,24 +29,27 @@ import { DiaryService } from '../../../services/diary.service';
 export class DiaryFormComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private diaryService: DiaryService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private diaryService: DiaryService,
+    private router: Router
+  ) {
     this.form = this.fb.group({
-      title: ['', Validators.required],
-      game: ['', Validators.required],
+      title: ['', [Validators.required]],
+      game: ['', [Validators.required]],
       notes: [''],
     });
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      this.diaryService.createDiary(this.form.value).subscribe({
-        next: () => {
-          this.router.navigate(['/dashboard']);
-        },
-        error: () => {
-          alert('Erro ao criar jornada.');
-        }
-      });
+  onSubmit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
+
+    this.diaryService.createDiary(this.form.value).subscribe({
+      next: () => this.router.navigate(['/diary']),
+      error: () => alert('Erro ao criar diário.'),
+    });
   }
 }

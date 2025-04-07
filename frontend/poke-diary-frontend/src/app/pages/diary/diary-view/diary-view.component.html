@@ -1,17 +1,20 @@
 <div class="diary-view-container" *ngIf="diary">
-    <mat-card class="diary-card">
+    <mat-card>
         <mat-card-header>
             <mat-card-title>{{ diary.title }}</mat-card-title>
             <mat-card-subtitle>Jogo: {{ diary.game }}</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
-            <p><strong>Anotações:</strong></p>
-            <p>{{ diary.notes || 'Nenhuma anotação adicional.' }}</p>
+            <p class="notes">
+                {{ diary.notes || 'Sem anotações registradas.' }}
+            </p>
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-stroked-button color="primary" disabled>Editar Jornada</button>
+            <button mat-stroked-button color="primary" [routerLink]="['/diary']">
+                Voltar para lista
+            </button>
         </mat-card-actions>
     </mat-card>
 </div>
