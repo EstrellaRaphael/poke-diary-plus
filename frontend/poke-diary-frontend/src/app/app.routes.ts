@@ -51,9 +51,8 @@ export const routes: Routes = [
     },
     {
         path: 'diary/:id/edit',
-        canActivate: [authGuard],
         loadComponent: () =>
-            import('./pages/diary/diary-edit/diary-edit.component').then(m => m.DiaryEditComponent)
+            import('./pages/diary/diary-form/diary-form.component').then(m => m.DiaryFormComponent)
     },
     {
         path: 'challenge/new',
