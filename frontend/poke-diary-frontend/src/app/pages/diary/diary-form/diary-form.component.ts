@@ -9,7 +9,8 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { DiaryService } from '../../../services/diary.service';
 
 @Component({
   selector: 'app-diary-form',
@@ -28,7 +29,7 @@ import { RouterModule } from '@angular/router';
 export class DiaryFormComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private diaryService: DiaryService, private router: Router) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       game: ['', Validators.required],
@@ -38,8 +39,14 @@ export class DiaryFormComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Nova Jornada:', this.form.value);
-      // TODO: Integrar com backend
+      this.diaryService.createDiary(this.form.value).subscribe({
+        next: () => {
+          this.router.navigate(['/dashboard']);
+        },
+        error: () => {
+          alert('Erro ao criar jornada.');
+        }
+      });
     }
   }
 }
