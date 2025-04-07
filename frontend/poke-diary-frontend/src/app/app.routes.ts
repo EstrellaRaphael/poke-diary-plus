@@ -77,4 +77,9 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/challenges/challenge-edit/challenge-edit.component').then(m => m.ChallengeEditComponent)
     },
+    {
+        path: 'feed',
+        loadComponent: () =>
+            import('./pages/feed/feed/feed.component').then(m => m.FeedComponent)
+    },
 ];

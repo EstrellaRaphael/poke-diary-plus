@@ -37,4 +37,7 @@ export class ChallengeService {
   saveProgress(challengeId: string, progress: { caught: string[], fainted: string[], badges: string[] }) {
     return this.http.put(`${this.api}/challenge/${challengeId}/progress`, progress);
   }
+  getPublicChallenges() {
+    return this.http.get<any[]>(`${this.api}/challenge/feed`);
+  }
 }
