@@ -1,0 +1,42 @@
+body {
+    background-color: #f4f5fa;
+    font-family: 'Rubik', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.register-container {
+    max-width: 450px;
+    margin: 5rem auto;
+    padding: 2.5rem 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid #e53935;
+    text-align: center;
+}
+
+.title {
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+button[mat-raised-button] {
+    background-color: #e53935;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+}
+
+button[mat-raised-button]:hover {
+    background-color: #cc0000;
+}
