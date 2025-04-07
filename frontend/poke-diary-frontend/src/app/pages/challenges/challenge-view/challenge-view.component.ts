@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ChallengeService } from '../../../services/challenge.service';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-challenge-view',
@@ -12,13 +14,25 @@ import { ChallengeService } from '../../../services/challenge.service';
     CommonModule,
     RouterModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    FormsModule
   ],
   templateUrl: './challenge-view.component.html',
   styleUrls: ['./challenge-view.component.css']
 })
 export class ChallengeViewComponent implements OnInit {
   challenge: any = null;
+
+  progress = {
+    caught: [] as string[],
+    fainted: [] as string[],
+    badges: [] as string[]
+  };
+
+  newCaught = '';
+  newFainted = '';
+  newBadge = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -42,9 +56,21 @@ export class ChallengeViewComponent implements OnInit {
 
     if (confirm(mensagem)) {
       this.challengeService.updateChallengeStatus(this.challenge.id, status).subscribe({
-        next: () => window.location.reload(), 
+        next: () => window.location.reload(),
         error: () => alert('Erro ao atualizar status do desafio.')
       });
     }
+  }
+
+  addTo(list: 'caught' | 'fainted' | 'badges', value: string) {
+    if (!value.trim()) return;
+    this.progress[list].push(value.trim());
+    if (list === 'caught') this.newCaught = '';
+    if (list === 'fainted') this.newFainted = '';
+    if (list === 'badges') this.newBadge = '';
+  }
+
+  removeFrom(list: 'caught' | 'fainted' | 'badges', index: number) {
+    this.progress[list].splice(index, 1);
   }
 }

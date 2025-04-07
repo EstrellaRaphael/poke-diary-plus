@@ -15,7 +15,54 @@
 
             <div class="progress-section">
                 <h4>Progresso</h4>
-                <p>⚠️ Acompanhamento de progresso será implementado em breve.</p>
+
+                <section>
+                    <h5>Pokémon Capturados</h5>
+                    <div class="tag-list">
+                        <span class="tag" *ngFor="let pkm of progress.caught; let i = index">
+                            {{ pkm }}
+                            <button mat-icon-button (click)="removeFrom('caught', i)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <mat-form-field appearance="fill" class="mini-field">
+                        <input matInput placeholder="Novo Pokémon" [(ngModel)]="newCaught" />
+                    </mat-form-field>
+                    <button mat-button color="primary" (click)="addTo('caught', newCaught)">Adicionar</button>
+                </section>
+
+                <section>
+                    <h5>Pokémon que Desmaiaram</h5>
+                    <div class="tag-list fainted">
+                        <span class="tag" *ngFor="let pkm of progress.fainted; let i = index">
+                            {{ pkm }}
+                            <button mat-icon-button (click)="removeFrom('fainted', i)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <mat-form-field appearance="fill" class="mini-field">
+                        <input matInput placeholder="Novo Pokémon" [(ngModel)]="newFainted" />
+                    </mat-form-field>
+                    <button mat-button color="warn" (click)="addTo('fainted', newFainted)">Adicionar</button>
+                </section>
+
+                <section>
+                    <h5>Insígnias Conquistadas</h5>
+                    <div class="tag-list badges">
+                        <span class="tag" *ngFor="let badge of progress.badges; let i = index">
+                            {{ badge }}
+                            <button mat-icon-button (click)="removeFrom('badges', i)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <mat-form-field appearance="fill" class="mini-field">
+                        <input matInput placeholder="Nova Insígnia" [(ngModel)]="newBadge" />
+                    </mat-form-field>
+                    <button mat-button color="accent" (click)="addTo('badges', newBadge)">Adicionar</button>
+                </section>
             </div>
         </mat-card-content>
 
