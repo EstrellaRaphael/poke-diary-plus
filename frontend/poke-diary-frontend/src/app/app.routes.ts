@@ -47,4 +47,10 @@ export const routes: Routes = [
                 (m) => m.DiaryViewComponent
             ),
     },
+    {
+        path: 'diary/:id/edit',
+        canActivate: [authGuard],
+        loadComponent: () =>
+            import('./pages/diary/diary-edit/diary-edit.component').then(m => m.DiaryEditComponent)
+    },
 ];

@@ -1,0 +1,23 @@
+.diary-form-container {
+    max-width: 600px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid #e53935;
+    font-family: 'Rubik', sans-serif;
+}
+
+.title {
+    color: #2c3e50;
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}

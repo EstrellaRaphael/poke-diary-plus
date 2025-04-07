@@ -1,4 +1,3 @@
-<p>diary-list works!</p>
 <div class="diary-list-container">
     <h2 class="title">Minhas Jornadas</h2>
 
@@ -17,7 +16,7 @@
             </mat-card-content>
             <mat-card-actions>
                 <button mat-button [routerLink]="['/diary', diary.id]">Visualizar</button>
-                <button mat-button disabled>Editar</button>
+                <button mat-button [routerLink]="['/diary', diary.id, 'edit']">Editar</button>
             </mat-card-actions>
         </mat-card>
     </div>
