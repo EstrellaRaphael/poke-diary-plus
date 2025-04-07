@@ -59,4 +59,10 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/challenges/challenge-form/challenge-form.component').then(m => m.ChallengeFormComponent)
     },
+    {
+        path: 'challenge/list',
+        canActivate: [authGuard],
+        loadComponent: () =>
+            import('./pages/challenges/challenge-list/challenge-list.component').then(m => m.ChallengeListComponent)
+    },
 ];

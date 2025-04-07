@@ -13,4 +13,8 @@ export class ChallengeService {
   createChallenge(data: { name: string; type: string; rules?: string }) {
     return this.http.post(`${this.api}/challenge`, data);
   }
+  
+  getAllChallenges() {
+    return this.http.get<any[]>(`${this.api}/challenge`);
+  }
 }
