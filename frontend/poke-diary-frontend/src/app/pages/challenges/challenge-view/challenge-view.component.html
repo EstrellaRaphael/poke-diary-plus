@@ -20,6 +20,7 @@
                     <h5>Pokémon Capturados</h5>
                     <div class="tag-list">
                         <span class="tag" *ngFor="let pkm of progress.caught; let i = index">
+                            <img [src]="getPokemonSprite(pkm)" class="sprite" [alt]="pkm" />
                             {{ pkm }}
                             <button mat-icon-button (click)="removeFrom('caught', i)">
                                 <mat-icon>close</mat-icon>
@@ -36,6 +37,7 @@
                     <h5>Pokémon que Desmaiaram</h5>
                     <div class="tag-list fainted">
                         <span class="tag" *ngFor="let pkm of progress.fainted; let i = index">
+                            <img [src]="getPokemonSprite(pkm)" class="sprite" [alt]="pkm" />
                             {{ pkm }}
                             <button mat-icon-button (click)="removeFrom('fainted', i)">
                                 <mat-icon>close</mat-icon>

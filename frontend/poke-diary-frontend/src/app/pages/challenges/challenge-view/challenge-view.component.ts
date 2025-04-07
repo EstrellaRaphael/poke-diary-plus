@@ -7,6 +7,8 @@ import { ChallengeService } from '../../../services/challenge.service';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-challenge-view',
@@ -17,7 +19,9 @@ import { finalize } from 'rxjs';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   templateUrl: './challenge-view.component.html',
   styleUrls: ['./challenge-view.component.css']
@@ -90,5 +94,10 @@ export class ChallengeViewComponent implements OnInit {
         next: () => alert('Progresso salvo com sucesso!'),
         error: () => alert('Erro ao salvar progresso.')
       });
+  }
+
+  getPokemonSprite(name: string): string {
+    const sanitized = name.toLowerCase().replace(/\s/g, '-').replace(/[.'"]/g, '');
+    return `https://img.pokemondb.net/sprites/home/normal/${sanitized}.png`;
   }
 }
