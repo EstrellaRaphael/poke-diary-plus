@@ -71,4 +71,10 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/challenges/challenge-view/challenge-view.component').then(m => m.ChallengeViewComponent)
     },
+    {
+        path: 'challenge/:id/edit',
+        canActivate: [authGuard],
+        loadComponent: () =>
+            import('./pages/challenges/challenge-edit/challenge-edit.component').then(m => m.ChallengeEditComponent)
+    },
 ];

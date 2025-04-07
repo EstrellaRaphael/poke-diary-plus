@@ -21,4 +21,8 @@ export class ChallengeService {
   getChallengeById(id: string) {
     return this.http.get<any>(`${this.api}/challenge/${id}`);
   }
+
+  updateChallenge(id: string, data: any) {
+    return this.http.put(`${this.api}/challenge/${id}`, data);
+  }
 }

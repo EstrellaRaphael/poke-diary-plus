@@ -20,8 +20,9 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-stroked-button disabled>Editar</button>
-            <button mat-stroked-button disabled>Finalizar</button>
+            <button mat-stroked-button [routerLink]="['/challenge', challenge.id, 'edit']">
+                Editar
+            </button> <button mat-stroked-button disabled>Finalizar</button>
         </mat-card-actions>
     </mat-card>
 </div>
