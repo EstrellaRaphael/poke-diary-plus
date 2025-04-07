@@ -35,3 +35,14 @@
     width: 40px;
     height: 40px;
 }
+
+.filtros {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.filtro-select {
+    width: 200px;
+}

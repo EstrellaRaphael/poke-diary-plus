@@ -1,8 +1,24 @@
 <div class="feed-container">
     <h2 class="title">Desafios da Comunidade</h2>
 
+    <div class="filtros">
+        <mat-form-field appearance="fill" class="filtro-select">
+            <mat-label>Tipo</mat-label>
+            <mat-select [(ngModel)]="selectedType" (selectionChange)="applyFilters()">
+                <mat-option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="filtro-select">
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilters()">
+                <mat-option *ngFor="let status of statusList" [value]="status">{{ status | titlecase }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
     <div class="feed-grid">
-        <mat-card *ngFor="let challenge of challenges" class="feed-card">
+        <mat-card *ngFor="let challenge of filteredChallenges" class="feed-card">
             <mat-card-header>
                 <mat-card-title>{{ challenge.name }}</mat-card-title>
                 <mat-card-subtitle>{{ challenge.type }} - {{ challenge.status | titlecase }}</mat-card-subtitle>
