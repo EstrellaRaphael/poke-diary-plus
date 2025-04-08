@@ -1,0 +1,11 @@
+.diary-card {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+.date {
+    font-style: italic;
+    margin-top: 8px;
+    color: #666;
+}

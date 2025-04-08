@@ -1,0 +1,17 @@
+<mat-card class="diary-card">
+    <mat-card-header>
+        <mat-card-title>{{ diary.title }}</mat-card-title>
+        <mat-card-subtitle>{{ diary.game }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <p>{{ diary.notes || 'Sem anotações adicionais.' }}</p>
+        <p class="date">📅 Criado em: {{ formatDate(diary.createdAt) }}</p>
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="showActions">
+        <button mat-button [routerLink]="['/diary', diary.id]">Visualizar</button>
+        <button mat-button [routerLink]="['/diary', diary.id, 'edit']">Editar</button>
+        <button mat-button color="warn" (click)="onDelete()">Excluir</button>
+    </mat-card-actions>
+</mat-card>
