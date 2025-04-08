@@ -1,78 +1,64 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { ChallengeService } from '../../../services/challenge.service';
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { ChallengeService } from '../../../services/challenge.service';
 import { Challenge } from '../../../models/challenge.model';
+import { ChallengeCardComponent } from '../../../components/challenge-card/challenge-card.component';
 
 @Component({
   selector: 'app-feed',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
     FormsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatCardModule
+    ChallengeCardComponent
   ],
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
   challenges: Challenge[] = [];
-  selectedType: string = 'todos';
-  selectedStatus: string = 'todos';
+  filteredChallenges: Challenge[] = [];
+
+  selectedType = 'todos';
+  selectedStatus = 'todos';
 
   tipos = ['todos', 'Nuzlocke', 'Randomlocke', 'Hardcore Nuzlocke'];
   statusList = ['todos', 'ativo', 'completo', 'falhou'];
 
-  filteredChallenges: Challenge[] = [];
-
   likedChallenges: Set<string> = new Set();
-  likes: Record<string, number> = {};
+  likes: { [id: string]: number } = {};
 
-  constructor(private challengeService: ChallengeService) { }
+  constructor(private challengeService: ChallengeService) {}
 
   ngOnInit(): void {
     this.challengeService.getPublicChallenges().subscribe({
-      next: (res: Challenge[]) => {
+      next: (res) => {
         this.challenges = res;
         this.challenges.forEach(ch => {
-          this.likes[ch.id] = Math.floor(Math.random() * 10); // simula curtidas iniciais
+          this.likes[ch.id] = Math.floor(Math.random() * 10); // simulação
         });
-        const storedLikes = localStorage.getItem('likedChallenges');
-        if (storedLikes) {
-          this.likedChallenges = new Set(JSON.parse(storedLikes));
+
+        const stored = localStorage.getItem('likedChallenges');
+        if (stored) {
+          this.likedChallenges = new Set(JSON.parse(stored));
         }
+
         this.applyFilters();
       },
       error: () => alert('Erro ao carregar o feed.')
     });
   }
 
-  getPokemonSprite(name: string): string {
-    const sanitized = name.toLowerCase().replace(/\s/g, '-').replace(/[.'"]/g, '');
-    return `https://img.pokemondb.net/sprites/home/normal/${sanitized}.png`;
-  }
-
   applyFilters(): void {
-    this.filteredChallenges = this.challenges.filter(challenge => {
-      const tipoOk = this.selectedType === 'todos' || challenge.type === this.selectedType;
-      const statusOk = this.selectedStatus === 'todos' || challenge.status === this.selectedStatus;
+    this.filteredChallenges = this.challenges.filter(ch => {
+      const tipoOk = this.selectedType === 'todos' || ch.type === this.selectedType;
+      const statusOk = this.selectedStatus === 'todos' || ch.status === this.selectedStatus;
       return tipoOk && statusOk;
     });
   }
 
-  toggleLike(challengeId: string) {
+  toggleLike(challengeId: string): void {
     if (this.likedChallenges.has(challengeId)) {
       this.likedChallenges.delete(challengeId);
       this.likes[challengeId]--;
@@ -82,6 +68,5 @@ export class FeedComponent implements OnInit {
     }
 
     localStorage.setItem('likedChallenges', JSON.stringify([...this.likedChallenges]));
-
   }
 }
