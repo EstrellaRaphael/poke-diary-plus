@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/EstrellaRaphael/poke-diary-plus/backend/controllers"
 	"github.com/EstrellaRaphael/poke-diary-plus/backend/routes/challenge"
+	"github.com/EstrellaRaphael/poke-diary-plus/backend/routes/diary"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,5 +16,7 @@ func RegisterRoutes(router *gin.Engine) {
 
 	challenge.ChallengeRoutes(api)
 	api.GET("/trainer/:username/challenges", controllers.GetChallengesByTrainer)
+
+	diary.DiaryRoutes(api)
 
 }
