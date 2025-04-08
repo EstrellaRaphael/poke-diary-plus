@@ -31,10 +31,10 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.valid) {
       this.authService.login(this.form.value).subscribe({
-        next: (res) => {
+        next: (res: { token: string }) => {
           this.authService.saveToken(res.token);
           this.router.navigate(['/dashboard']);
         },

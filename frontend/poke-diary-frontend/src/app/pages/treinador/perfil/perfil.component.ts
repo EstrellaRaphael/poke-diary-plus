@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ChallengeService } from '../../../services/challenge.service';
+import { Challenge } from '../../../models/challenge.model';
 
 @Component({
   selector: 'app-perfil',
@@ -21,8 +22,8 @@ import { ChallengeService } from '../../../services/challenge.service';
 })
 export class PerfilComponent implements OnInit {
   username = '';
-  challenges: any[] = [];
-  likedChallenges: any[] = [];
+  challenges: Challenge[] = [];
+  likedChallenges: Challenge[] = [];
 
 
   constructor(
@@ -32,24 +33,25 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = this.route.snapshot.paramMap.get('username') || '';
+
     this.challengeService.getChallengesByTrainer(this.username).subscribe({
-      next: (res) => this.challenges = res,
+      next: (res: Challenge[]) => this.challenges = res,
       error: () => alert('Erro ao carregar desafios do treinador.')
     });
 
     const storedLikes = localStorage.getItem('likedChallenges');
-    if (storedLikes && this.username === 'ash') { // simulação de login
-    // if (storedLikes && this.username === authService.getUsername()) {
+    if (storedLikes && this.username === 'ash') {
       const likedIds = JSON.parse(storedLikes);
 
-      // Simular busca dos desafios curtidos (mock)
       this.challengeService.getPublicChallenges().subscribe({
-        next: (allChallenges) => {
+        next: (allChallenges: Challenge[]) => {
           this.likedChallenges = allChallenges.filter(ch => likedIds.includes(ch.id));
-        }
+        },
+        error: () => console.warn('Não foi possível carregar desafios públicos.')
       });
     }
   }
+
 
   getPokemonSprite(name: string): string {
     const sanitized = name.toLowerCase().replace(/\s/g, '-').replace(/[.'"]/g, '');

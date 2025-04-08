@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { DiaryService } from '../../../services/diary.service';
+import { Diary } from '../../../models/diary.model';
 
 @Component({
   selector: 'app-diary-list',
@@ -13,18 +14,18 @@ import { DiaryService } from '../../../services/diary.service';
   styleUrls: ['./diary-list.component.css'],
 })
 export class DiaryListComponent implements OnInit {
-  diaries: any[] = [];
+  diaries: Diary[] = [];
 
   constructor(private diaryService: DiaryService) {}
 
   ngOnInit(): void {
     this.diaryService.getAllDiaries().subscribe({
-      next: (res) => (this.diaries = res),
+      next: (res: Diary[]) => (this.diaries = res),
       error: () => alert('Erro ao carregar jornadas.'),
     });
   }
 
-  deleteDiary(id: string) {
+  deleteDiary(id: string): void {
     const confirmar = confirm('Tem certeza que deseja excluir esta jornada?');
     if (confirmar) {
       this.diaryService.deleteDiary(id).subscribe({

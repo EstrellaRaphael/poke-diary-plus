@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { DiaryService } from '../../../services/diary.service';
+import { Diary } from '../../../models/diary.model';
 
 @Component({
   selector: 'app-diary-view',
@@ -21,7 +22,7 @@ import { DiaryService } from '../../../services/diary.service';
   styleUrls: ['./diary-view.component.css']
 })
 export class DiaryViewComponent implements OnInit {
-  diary: any;
+  diary: Diary | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +33,7 @@ export class DiaryViewComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.diaryService.getDiaryById(id).subscribe({
-        next: (res) => this.diary = res,
+        next: (res: Diary) => this.diary = res,
         error: () => alert('Erro ao carregar diário.')
       });
     }

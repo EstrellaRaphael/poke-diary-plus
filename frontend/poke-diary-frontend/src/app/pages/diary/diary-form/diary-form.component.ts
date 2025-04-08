@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { Diary } from '../../../models/diary.model';
 
 @Component({
   selector: 'app-diary-form',
@@ -49,7 +50,7 @@ export class DiaryFormComponent implements OnInit {
 
     if (this.diaryId) {
       this.diaryService.getDiaryById(this.diaryId).subscribe({
-        next: (res) => this.form.patchValue(res),
+        next: (res: Diary) => this.form.patchValue(res),
         error: () => alert('Erro ao carregar jornada para edição.'),
       });
     }
@@ -67,7 +68,7 @@ export class DiaryFormComponent implements OnInit {
         error: () => alert('Erro ao atualizar jornada.'),
       });
     } else {
-      this.diaryService.createDiary(this.form.value).subscribe({
+      this.diaryService.createDiary(this.form.value as Omit<Diary, 'id'>).subscribe({
         next: () => this.router.navigate(['/diary']),
         error: () => alert('Erro ao criar jornada.'),
       });

@@ -8,6 +8,7 @@ import { ChallengeService } from '../../../services/challenge.service';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { Challenge } from '../../../models/challenge.model';
 
 @Component({
   selector: 'app-feed',
@@ -27,23 +28,23 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  challenges: any[] = [];
+  challenges: Challenge[] = [];
   selectedType: string = 'todos';
   selectedStatus: string = 'todos';
 
   tipos = ['todos', 'Nuzlocke', 'Randomlocke', 'Hardcore Nuzlocke'];
   statusList = ['todos', 'ativo', 'completo', 'falhou'];
 
-  filteredChallenges: any[] = [];
+  filteredChallenges: Challenge[] = [];
 
   likedChallenges: Set<string> = new Set();
-  likes: { [id: string]: number } = {};
+  likes: Record<string, number> = {};
 
   constructor(private challengeService: ChallengeService) { }
 
   ngOnInit(): void {
     this.challengeService.getPublicChallenges().subscribe({
-      next: (res) => {
+      next: (res: Challenge[]) => {
         this.challenges = res;
         this.challenges.forEach(ch => {
           this.likes[ch.id] = Math.floor(Math.random() * 10); // simula curtidas iniciais
@@ -63,7 +64,7 @@ export class FeedComponent implements OnInit {
     return `https://img.pokemondb.net/sprites/home/normal/${sanitized}.png`;
   }
 
-  applyFilters() {
+  applyFilters(): void {
     this.filteredChallenges = this.challenges.filter(challenge => {
       const tipoOk = this.selectedType === 'todos' || challenge.type === this.selectedType;
       const statusOk = this.selectedStatus === 'todos' || challenge.status === this.selectedStatus;

@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { ChallengeService } from '../../../services/challenge.service';
+import { Challenge } from '../../../models/challenge.model';
 
 @Component({
   selector: 'app-challenge-edit',
@@ -43,7 +44,7 @@ export class ChallengeEditComponent implements OnInit {
     });
 
     this.challengeService.getChallengeById(this.challengeId).subscribe({
-      next: (challenge) => this.form.patchValue(challenge),
+      next: (challenge: Challenge) => this.form.patchValue(challenge),
       error: () => alert('Erro ao carregar desafio.')
     });
   }

@@ -26,22 +26,18 @@ export class RegisterComponent {
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.form = this.fb.group({
       username: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.valid) {
       const { username, email, password } = this.form.value;
       this.authService.register({ username, email, password }).subscribe({
-        next: () => {
-          this.router.navigate(['/login']);
-        },
-        error: () => {
-          alert('Erro ao cadastrar usuário!');
-        }
+        next: () => this.router.navigate(['/login']),
+        error: () => alert('Erro ao cadastrar usuário!')
       });
     }
   }

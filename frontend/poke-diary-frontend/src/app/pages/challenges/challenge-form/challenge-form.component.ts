@@ -37,7 +37,7 @@ export class ChallengeFormComponent {
   onSubmit() {
     if (this.form.valid) {
       this.challengeService.createChallenge(this.form.value).subscribe({
-        next: () => {
+        next: (res: { message: string; id?: string}) => {
           this.router.navigate(['/dashboard']);
         },
         error: () => alert('Erro ao criar desafio.')

@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Challenge, ChallengeProgress } from '../../../models/challenge.model';
 
 @Component({
   selector: 'app-challenge-view',
@@ -27,9 +28,9 @@ import { MatInputModule } from '@angular/material/input';
   styleUrls: ['./challenge-view.component.css']
 })
 export class ChallengeViewComponent implements OnInit {
-  challenge: any = null;
+  challenge: Challenge | null = null;
 
-  progress = {
+  progress: ChallengeProgress = {
     caught: [] as string[],
     fainted: [] as string[],
     badges: [] as string[]
@@ -50,18 +51,19 @@ export class ChallengeViewComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.challengeService.getChallengeById(id).subscribe({
-        next: (res) => this.challenge = res,
+        next: (res: Challenge) => this.challenge = res,
         error: () => alert('Erro ao carregar o desafio.')
       });
 
       this.challengeService.getProgressByChallengeId(id).subscribe({
-        next: (res: any) => this.progress = res,
+        next: (res: ChallengeProgress) => this.progress = res,
         error: () => console.warn('Progresso ainda não existe.')
       });
     }
   }
 
   finalizar(status: 'completo' | 'falhou') {
+    if (!this.challenge) return;
     const mensagem = status === 'completo'
       ? 'Deseja marcar este desafio como COMPLETO?'
       : 'Deseja marcar este desafio como FALHOU?';
@@ -74,7 +76,7 @@ export class ChallengeViewComponent implements OnInit {
     }
   }
 
-  addTo(list: 'caught' | 'fainted' | 'badges', value: string) {
+  addTo(list: keyof ChallengeProgress, value: string): void {
     if (!value.trim()) return;
     this.progress[list].push(value.trim());
     if (list === 'caught') this.newCaught = '';
@@ -82,11 +84,12 @@ export class ChallengeViewComponent implements OnInit {
     if (list === 'badges') this.newBadge = '';
   }
 
-  removeFrom(list: 'caught' | 'fainted' | 'badges', index: number) {
+  removeFrom(list: keyof ChallengeProgress, index: number): void {
     this.progress[list].splice(index, 1);
   }
 
-  saveProgress() {
+  saveProgress(): void {
+    if (!this.challenge) return;
     this.isSaving = true;
     this.challengeService.saveProgress(this.challenge.id, this.progress)
       .pipe(finalize(() => this.isSaving = false))

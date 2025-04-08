@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ChallengeService } from '../../../services/challenge.service';
+import { Challenge } from '../../../models/challenge.model';
 
 @Component({
   selector: 'app-challenge-list',
@@ -20,13 +21,13 @@ import { ChallengeService } from '../../../services/challenge.service';
   styleUrls: ['./challenge-list.component.css']
 })
 export class ChallengeListComponent implements OnInit {
-  challenges: any[] = [];
+  challenges: Challenge[] = [];
 
   constructor(private challengeService: ChallengeService) {}
 
   ngOnInit(): void {
     this.challengeService.getAllChallenges().subscribe({
-      next: (res) => this.challenges = res,
+      next: (res: Challenge[]) => this.challenges = res,
       error: () => alert('Erro ao carregar desafios.')
     });
   }

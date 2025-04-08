@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { Diary } from '../models/diary.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,18 +12,18 @@ export class DiaryService {
 
   constructor(private http: HttpClient) { }
 
-  createDiary(data: { title: string; game: string; notes?: string }) {
-    // return this.http.post(`${this.api}/diary`, data);
+  createDiary(data: Omit<Diary, 'id'>): Observable<{ message: string; id?: string }> {
+    return this.http.post<{ message: string; id?: string }>(`${this.api}/diary`, data);
 
     // Simulação:
-    return of({ message: 'Diário criado!', id: '1' }).pipe(delay(500));
+    // return of({ message: 'Diário criado!', id: '1' }).pipe(delay(500));
   }
 
-  getAllDiaries() {
-    // return this.http.get<any[]>(`${this.api}/diary`);
+  getAllDiaries(): Observable<Diary[]> {
+    return this.http.get<Diary[]>(`${this.api}/diary`);
 
     // Simulação:
-    // /*
+    /*
     return of([
       {
         id: '1',
@@ -39,14 +40,14 @@ export class DiaryService {
         createdAt: '2025-04-07T08:30:00Z'
       }
     ]).pipe(delay(500));
-    // */
+    */
   }
 
-  getDiaryById(id: string) {
-    // return this.http.get<any>(`${this.api}/diary/${id}`);
+  getDiaryById(id: string): Observable<Diary> {
+    return this.http.get<Diary>(`${this.api}/diary/${id}`);
 
     // Simulação:
-    // /*
+    /*
     return of({
       id,
       title: 'Diário de Hoenn',
@@ -54,20 +55,20 @@ export class DiaryService {
       notes: 'Capturei um Treecko shiny!',
       createdAt: '2025-04-07T10:45:00Z'
     }).pipe(delay(500));
-    // */
+    */
   }
 
-  updateDiary(id: string, data: { title: string; game: string; notes?: string }) {
-    // return this.http.put(`${this.api}/diary/${id}`, data);
+  updateDiary(id: string, data: Partial<Diary>): Observable<{ message: string }> {
+    return this.http.put<{ message: string }>(`${this.api}/diary/${id}`, data);
 
     // Simulação:
-    return of({ message: 'Diário atualizado!' }).pipe(delay(500));
+    // return of({ message: 'Diário atualizado!' }).pipe(delay(500));
   }
 
-  deleteDiary(id: string) {
-    // return this.http.delete(`${this.api}/diary/${id}`);
+  deleteDiary(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.api}/diary/${id}`);
 
     // Simulação:
-    return of({ message: 'Diário deletado com sucesso!' }).pipe(delay(500));
+    // return of({ message: 'Diário deletado com sucesso!' }).pipe(delay(500));
   }
 }
